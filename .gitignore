@@ -1,7 +1,10 @@
 # Ignore everything
 *
 
-# Except the Data folder and app.py
+# Except the Data folder and its contents
 !Data/
+!Data/**
+
+# Allow app.py and .gitignore
 !app.py
 !.gitignore
