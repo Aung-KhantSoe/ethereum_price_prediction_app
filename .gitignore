@@ -1,0 +1,7 @@
+# Ignore everything
+*
+
+# Except the Data folder and app.py
+!Data/
+!app.py
+!.gitignore
