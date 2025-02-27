@@ -180,7 +180,7 @@ def predict_future_states_second_order(transition_matrix, current_state, days):
     return states
 
 # Streamlit app
-st.title("Ethereum Price State Prediction")
+st.title("Crypto Market State Prediction")
 
 # Upload dataset
 uploaded_file = st.file_uploader("Upload your dataset (CSV file)", type="csv")
@@ -203,6 +203,17 @@ if uploaded_file is not None:
     # Apply the detailed state function
     data['Detailed_State'] = data['Price_Change_Percentage'].apply(get_detailed_state)
     st.write(data.head())
+    
+    # Convert the DataFrame to a CSV file for download
+    csv = data.to_csv(index=False).encode('utf-8')
+
+    # Create a download button
+    # st.download_button(
+    #     label="Download Preprocessed Data as CSV",
+    #     data=csv,
+    #     file_name='preprocessed_data.csv',
+    #     mime='text/csv',
+    # )
 
     # Define the custom order for the states
     state_order = ['Large Decrease', 'Decrease', 'Increase', 'Large Increase']
@@ -266,7 +277,7 @@ if uploaded_file is not None:
                 correct_predictions += 1
             total_predictions += 1
 
-        accuracy = correct_predictions / total_predictions
+        accuracy = (correct_predictions / total_predictions)
 
         # Display model accuracy
         st.subheader("Model Accuracy")
@@ -293,13 +304,13 @@ if uploaded_file is not None:
         st.write(predicted_df)
 
         # Plot the predicted states using Plotly
-        fig = px.line(predicted_df, x='Date', y='State', title='Predicted Future States of Ethereum (ETH) Price', 
+        fig = px.line(predicted_df, x='Date', y='State', title='Predicted Future States of Crypto Price', 
                       category_orders={'State': state_order})
         fig.update_yaxes(categoryorder='array', categoryarray=state_order)
         st.plotly_chart(fig)
         
         # Visualize historical data with states
-        fig2 = px.line(data, x='Date', y='Close', color='Detailed_State', title='Historical Ethereum (ETH) Price with States', category_orders={'Detailed_State': state_order})
+        fig2 = px.line(data, x='Date', y='Close', color='Detailed_State', title='Historical Crypto Price with States', category_orders={'Detailed_State': state_order})
         fig2.update_yaxes(categoryorder='array', categoryarray=state_order)
         st.plotly_chart(fig2)
 
@@ -377,7 +388,7 @@ if uploaded_file is not None:
                 correct_predictions += 1
             total_predictions += 1
 
-        accuracy = correct_predictions / total_predictions
+        accuracy = (correct_predictions / total_predictions)
 
         # Display model accuracy
         st.subheader("Model Accuracy")
@@ -404,13 +415,13 @@ if uploaded_file is not None:
         st.write(predicted_df)
 
         # Plot the predicted states using Plotly
-        fig = px.line(predicted_df, x='Date', y='State', title='Predicted Future States of Ethereum (ETH) Price', 
+        fig = px.line(predicted_df, x='Date', y='State', title='Predicted Future States of Crypto Price', 
                       category_orders={'State': state_order})
         fig.update_yaxes(categoryorder='array', categoryarray=state_order)
         st.plotly_chart(fig)
         
         # Visualize historical data with states
-        fig2 = px.line(data, x='Date', y='Close', color='Detailed_State', title='Historical Ethereum (ETH) Price with States', category_orders={'Detailed_State': state_order})
+        fig2 = px.line(data, x='Date', y='Close', color='Detailed_State', title='Historical Crypto Price with States', category_orders={'Detailed_State': state_order})
         fig2.update_yaxes(categoryorder='array', categoryarray=state_order)
         st.plotly_chart(fig2)
 
